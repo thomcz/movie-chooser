@@ -1,3 +1,63 @@
+<button class="btn" (click)="goBack()">
+    <mat-icon mat-list-icon>arrow_back</mat-icon> 
+</button>
+<button class="btn">
+        <mat-icon mat-list-icon>add</mat-icon> 
+</button>
+
 <h2>{{ movie.Title }}</h2>
-<div><span>year: </span>{{movie.Year}}</div>
-<img src={{movie.Poster}}>
+
+<mat-card>
+    <img class="poster" src={{movie.Poster}}>
+    <mat-list> 
+            <mat-list-item> 
+                <mat-icon mat-list-icon>date_range</mat-icon>  
+                <h4 mat-line>Year</h4>
+                <p mat-line>{{movie.Year}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>access_time</mat-icon>  
+                <h4 mat-line>Runtime</h4>
+                <p mat-line>{{movie.Runtime}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>movie</mat-icon>  
+                <h4 mat-line>Genre</h4>
+                <p mat-line>{{movie.Genre}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>photo_camera</mat-icon>  
+                <h4 mat-line>Director</h4>
+                <p mat-line>{{movie.Director}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>mode_edit</mat-icon>  
+                <h4 mat-line>Writer</h4>
+                <p mat-line>{{movie.Writer}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>face</mat-icon>  
+                <h4 mat-line>Actors</h4>
+                <p mat-line>{{movie.Actors}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>star</mat-icon>  
+                <h4 mat-line>Metascore</h4>
+                <p mat-line>{{movie.Metascore}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>star</mat-icon>  
+                <h4 mat-line>Imdb Rating</h4>
+                <p mat-line>{{movie.imdbRating}}</p>
+            </mat-list-item>
+            <mat-list-item> 
+                <mat-icon mat-list-icon>format_align_left</mat-icon>  
+                <h4 mat-line>Plot</h4>
+                <p mat-line >{{movie.Plot}}</p>
+            </mat-list-item>
+            
+    </mat-list>
+        
+</mat-card>
+
+

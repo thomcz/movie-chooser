@@ -11,7 +11,6 @@ import { MOVIES } from "./mock-movies";
 @Injectable()
 export class MovieService {
 
-  //private omdbUrl ='http://www.omdbapi.com/?t=&apikey=${apiKey}'
   private apiKey
 
   constructor(
@@ -21,7 +20,7 @@ export class MovieService {
   }
 
   getMovie(name : string) : Observable<Movie> {
-    return  this.http.get<Movie>(`http://www.omdbapi.com/?t=${name}&apikey=${this.apiKey}`)
+    return this.http.get<Movie>(`http://www.omdbapi.com/?t=${name}&apikey=${this.apiKey}`)
   }
 
   getMovies() : Observable<Movie[]> {
