@@ -1,13 +1,14 @@
 <button class="btn" (click)="goBack()">
     <mat-icon mat-list-icon>arrow_back</mat-icon> 
 </button>
-<button class="btn">
+<button class="btn" (click)="addMovie()">
         <mat-icon mat-list-icon>add</mat-icon> 
 </button>
 
-<h2>{{ movie.Title }}</h2>
+
 
 <mat-card>
+    <h2>{{ movie.Title }}</h2>
     <img class="poster" src={{movie.Poster}}>
     <mat-list> 
             <mat-list-item> 

@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { MovieDetailsComponent } from './movie-details/movie-details.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: 'main', component: MainComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'movie/:name', component: MovieDetailsComponent }
 ];

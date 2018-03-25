@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. In order to properly work you also need to run a mongodb database and the nodejs server contained in this project.
 
 ## Code scaffolding
 
@@ -21,6 +21,13 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Troubleshooting
+If the following error occur
+```
+cannot load http://mywebservice. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:...' is therefore not allowed access.
+```
+You need [this](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) plugin
 
 ## Further help
 

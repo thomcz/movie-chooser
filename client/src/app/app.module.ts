@@ -16,13 +16,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
+import { MainComponent } from './main/main.component';
+import { AuthenticationService } from './authentication.service';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MovieDetailsComponent,
-    DashboardComponent
+    DashboardComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -33,11 +37,12 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    MatDialogModule,
     MatToolbarModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [MovieService],
+  providers: [MovieService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
