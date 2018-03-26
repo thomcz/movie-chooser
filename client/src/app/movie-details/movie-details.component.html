@@ -3,9 +3,11 @@
     <button mat-icon-button (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
     </button>
-       
-    <button mat-icon-button (click)="addMovie()">
+    <button *ngIf="showAddButton()" mat-icon-button (click)="addMovie()">
         <mat-icon>add_circle</mat-icon>
+    </button>
+    <button *ngIf="showDeleteButton()" mat-icon-button (click)="deleteMovie()">
+        <mat-icon>delete</mat-icon>
     </button>
 
   </mat-toolbar-row>

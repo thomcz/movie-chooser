@@ -1,10 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Movie } from '../movie';
-import { MovieService } from "../movie.service";
-import { MovieDb } from '../moviedb';
-import { AuthenticationService } from '../authentication.service';
+import { Movie } from '../model/movie';
+import { MovieDb } from '../model/moviedb';
+import { MovieService } from "../services/movie.service";
+import { AuthenticationService } from '../services/authentication.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelect(movie: MovieDb) {
-    this.router.navigateByUrl(`/movie/${movie.title}`);
+    this.router.navigateByUrl(`/movie/${movie.title}/${movie.imdbId}`);
   }
 
   chooseRandomMovie() {

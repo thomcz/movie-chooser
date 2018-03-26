@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Movie } from '../movie';
-import { MovieService } from "../movie.service";
-import { AuthenticationService } from '../authentication.service';
+import { Movie } from '../model/movie';
+import { MovieService } from "../services/movie.service";
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -17,6 +17,7 @@ export class MovieDetailsComponent implements OnInit {
   movie: Movie;
   private username: string
   private roomId: string
+  private imdbId: string
 
   constructor(
     private route: ActivatedRoute, 
@@ -33,6 +34,7 @@ export class MovieDetailsComponent implements OnInit {
 
   getMovie(): void {
     const name = this.route.snapshot.paramMap.get('name');
+    this.imdbId = this.route.snapshot.paramMap.get('imdbId');
     this.movieService.getMovie(this.formatSearch(name)).subscribe(movie => this.movie = movie);
   }
 
@@ -51,6 +53,27 @@ export class MovieDetailsComponent implements OnInit {
       }
     );
   }
+
+  deleteMovie(): void {
+    this.movieService.deleteMovie(this.movie, this.username, this.roomId).subscribe(
+      res => {
+        console.log(res);
+        this.location.back();
+      },
+      err => {
+        console.log("Error occured");
+      }
+    );
+  }
+
+  showAddButton(): boolean {
+    return this.imdbId == null
+  }
+
+  showDeleteButton(): boolean {
+    return this.imdbId != null
+  }
+
 
   private formatSearch(search: string): string {
     return search.trim().split('-').join(' ');

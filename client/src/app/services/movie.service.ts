@@ -5,17 +5,17 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Movie } from './movie'
-import { MovieDb } from './moviedb'
-import { OmdbApiKey } from "./apikey";
-import { MOVIES } from "./mock-movies";
+import { Movie } from '../model/movie'
+import { MovieDb } from '../model/moviedb'
+import { OmdbApiKey } from "../apikey";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class MovieService {
 
-  private apiKey
+  private apiKey: string
   private moviesUrl = 'http://localhost:3000/movies'
-  
+
   constructor(
     private http: HttpClient
   )  { 
@@ -32,5 +32,9 @@ export class MovieService {
 
   addMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    
     return this.http.post(this.moviesUrl, {title: movie.Title, imdbId: movie.imdbID, user: username, roomId: roomId})
+  }
+
+  deleteMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    
+    return this.http.delete(`${this.moviesUrl}/${movie.imdbID}/${username}/${roomId}`)
   }
 }

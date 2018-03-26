@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
 
 /* GET /movies/roomid */
 router.get('/:id', function(req, res, next) {
-    console.log(req.params.id)
     Movie.find({'roomId': req.params.id}, function (err, post) {
       if (err) return next(err);
       res.json(post);
@@ -25,5 +24,13 @@ router.post('/', function(req, res, next) {
       if (err) return next(err);
       res.json(post);
     });
+ });
+
+/* DELETE /movies/imdbId/username/roomid */
+router.delete('/:imdbId/:user/:room', function(req, res, next) {
+  Movie.remove({'imdbId': req.params.imdbId, 'user': req.params.user, 'roomId': req.params.room}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
   });
+});
 module.exports = router;

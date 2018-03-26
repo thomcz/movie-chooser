@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'movie/:name', component: MovieDetailsComponent }
+  { path: 'movie/:name', component: MovieDetailsComponent },
+  { path: 'movie/:name/:imdbId', component: MovieDetailsComponent }
 ];
 
 
