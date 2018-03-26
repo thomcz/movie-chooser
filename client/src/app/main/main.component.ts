@@ -24,6 +24,10 @@ export class MainComponent implements OnInit {
   }
 
   createNewRoom(username: string) {
+    if (username.trim() == "") {
+      return;
+    }
+
     this.authenticationData.changeRoomId(this.createRandomRoomId())
     this.authenticationData.changeUsername(username)
 
@@ -31,7 +35,10 @@ export class MainComponent implements OnInit {
   }
 
   joinRoom(roomId: string, username: string): void {
-    if (roomId.trim == null) {
+    if (roomId.trim() == "") {
+      return;
+    }
+    if (username.trim() == "") {
       return;
     }
 

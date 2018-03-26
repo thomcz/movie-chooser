@@ -11,7 +11,7 @@
 <button mat-raised-button color="primary" (click)="chooseRandomMovie()">Choose Random Movie</button>
 <mat-card>
   <mat-list>    
-      <h3 matSubheader>Notes</h3> 
+      <h3 matSubheader>Suggested Movies</h3> 
     <mat-list-item *ngFor="let movie of movies"
       (click)="onSelect(movie)">  
       <mat-icon mat-list-icon>movie</mat-icon> 
