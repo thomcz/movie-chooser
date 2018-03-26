@@ -20,6 +20,7 @@ import { MainComponent } from './main/main.component';
 import { AuthenticationService } from './authentication.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { DialogComponent } from './dialog/dialog.component';
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
+    MatMenuModule,
     MatInputModule,
     MatCardModule,
     MatDialogModule,

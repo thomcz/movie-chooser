@@ -38,6 +38,10 @@ export class DashboardComponent implements OnInit {
 
   searchClick(search: string): void {
     var formatted = this.formatSearch(search);
+    if (formatted == "") {
+      this.openDialog('Information', 'Enter Movie Name');
+      return;
+    }
     this.router.navigateByUrl(`/movie/${formatted}`);
   }
 
@@ -48,16 +52,16 @@ export class DashboardComponent implements OnInit {
   chooseRandomMovie() {
     var index = Math.floor(Math.random() * this.movies.length) + 0  
     
-    this.openDialog(index)
+    this.openDialog('Choosen Movie', this.movies[index].title)
   }
 
   private formatSearch(search: string): string {
     return search.trim().split(' ').join('-');
   }
 
-  private openDialog(index: number) {
+  private openDialog(title: string, message: string) {
     let dialogRef = this.dialog.open(DialogComponent, {
-      data: { title: 'Choosen Movie', message: this.movies[index].title }
+      data: { title: title, message: message }
     });
 
     dialogRef.afterClosed().subscribe(result => {

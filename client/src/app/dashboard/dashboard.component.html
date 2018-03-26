@@ -1,24 +1,35 @@
-<h1>Welcome {{username}} To Room {{roomId}}</h1>
-<mat-card>
-  <div class="container">
-    <mat-form-field>
-      <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Search" >
-    </mat-form-field>
-  </div>
-<!--<button mat-raised-button color="primary" (click)="searchClick(search.value)">search</button>  -->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Welcome <span class="username">{{username}}</span> To Room <span class="room">{{roomId}}</span></span>
+    <span class="spacer"></span>    
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+    </button>
 
-</mat-card>
-<button mat-raised-button color="primary" (click)="chooseRandomMovie()">Choose Random Movie</button>
+  </mat-toolbar-row>
+</mat-toolbar>
 <mat-card>
-  <mat-list>    
+  <button mat-raised-button color="primary" (click)="chooseRandomMovie()">Choose Random Movie</button>
+</mat-card>
+<mat-card>
+  <mat-form-field>
+    <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Search" >
+  </mat-form-field>
+  <!--<button mat-raised-button color="primary" (click)="searchClick(search.value)">search</button>  -->
+  <mat-list *ngIf="movies.length">    
       <h3 matSubheader>Suggested Movies</h3> 
     <mat-list-item *ngFor="let movie of movies"
       (click)="onSelect(movie)">  
-      <mat-icon mat-list-icon>movie</mat-icon> 
+      <mat-icon mat-list-icon color="accent">movie</mat-icon> 
       <h4 mat-line>{{movie.title}}</h4>
-      <p mat-line>suggested by {{movie.user}}</p>
+      <p mat-line>suggested by <span class="username">{{movie.user}}</span></p>
     </mat-list-item>
   </mat-list>
 </mat-card>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="chooseRandomMovie()">Choose Random Movie</button>
+    <button mat-menu-item>Item 2</button>
+  </mat-menu>
   
 

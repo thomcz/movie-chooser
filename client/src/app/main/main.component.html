@@ -2,13 +2,15 @@
 
 <mat-card>
   <mat-form-field>
+    <mat-icon matPrefix>person</mat-icon>
     <input #username matInput placeholder="Who Are You?">
   </mat-form-field>
   
   <mat-form-field>
+    <mat-icon matPrefix>room</mat-icon>
     <input #roomCode matInput placeholder="Enter Room Code" (keyup.enter)="joinRoom(roomCode.value, username.value)">
   </mat-form-field>
-
+  
   <button mat-raised-button color="accent" (click)="joinRoom(roomCode.value, username.value)">Join Room</button>
   <button mat-raised-button color="primary" (click)="createNewRoom(username.value)">Create New Room</button>
 </mat-card>

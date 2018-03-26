@@ -7,7 +7,8 @@ mat-icon {
 }
 
 mat-card {
-    text-align: center
+    text-align: center;
+    margin: 14px
 }
 
 button {
