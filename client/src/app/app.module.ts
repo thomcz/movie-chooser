@@ -19,6 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MainComponent } from './main/main.component';
 import { AuthenticationService } from './authentication.service';
 import {MatDialogModule} from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     AppComponent,
     MovieDetailsComponent,
     DashboardComponent,
-    MainComponent
+    MainComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     HttpClientModule
   ],
   providers: [MovieService, AuthenticationService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

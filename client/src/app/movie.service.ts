@@ -26,8 +26,8 @@ export class MovieService {
     return this.http.get<Movie>(`http://www.omdbapi.com/?t=${name}&apikey=${this.apiKey}`)
   }
 
-  getMovies(roomId: string) : Observable<Movie[]> {
-    return this.http.get<Movie[]>(`${this.moviesUrl}/${roomId}`)
+  getMovies(roomId: string) : Observable<MovieDb[]> {
+    return this.http.get<MovieDb[]>(`${this.moviesUrl}/${roomId}`)
   }
 
   addMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    

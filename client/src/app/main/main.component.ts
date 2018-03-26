@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +17,8 @@ export class MainComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationData: AuthenticationService
+    private authenticationData: AuthenticationService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -25,6 +28,7 @@ export class MainComponent implements OnInit {
 
   createNewRoom(username: string) {
     if (username.trim() == "") {
+      this.openDialog('Information', 'Enter A Username')
       return;
     }
 
@@ -36,9 +40,11 @@ export class MainComponent implements OnInit {
 
   joinRoom(roomId: string, username: string): void {
     if (roomId.trim() == "") {
+      this.openDialog('Information', 'Enter A Room Id')
       return;
     }
     if (username.trim() == "") {
+      this.openDialog('Information', 'Enter A Username')
       return;
     }
 
@@ -50,6 +56,16 @@ export class MainComponent implements OnInit {
 
   private createRandomRoomId(): string {
     return Math.random().toString(36).substring(7);    
+  }
+
+  private openDialog(title: string, message: string) {
+    let dialogRef = this.dialog.open(DialogComponent, {
+      data: { title: title, message: message }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }
