@@ -13,6 +13,7 @@ export class MainComponent implements OnInit {
 
   private username: string
   private roomId: string
+  private isHost: boolean
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +25,8 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.authenticationData.currentUsername.subscribe(username => this.username = username)
     this.authenticationData.currentRoomId.subscribe(roomId => this.roomId = roomId)
+    this.authenticationData.currentHost.subscribe(isHost => this.isHost = isHost)
+
   }
 
   createNewRoom(username: string) {
@@ -34,6 +37,7 @@ export class MainComponent implements OnInit {
 
     this.authenticationData.changeRoomId(this.createRandomRoomId())
     this.authenticationData.changeUsername(username)
+    this.authenticationData.changeHost(true)
 
     this.router.navigateByUrl('/dashboard');
   }

@@ -7,6 +7,7 @@ import { MovieService } from "../services/movie.service";
 import { AuthenticationService } from '../services/authentication.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { VoteService } from '../services/vote.service';
 
 
 @Component({
@@ -20,10 +21,13 @@ export class DashboardComponent implements OnInit {
   private movies: MovieDb[]
   private username: string
   private roomId: string
+  private isHost: boolean
+  private votedMovie: MovieDb
 
   constructor(
     private movieService: MovieService,
     private authenticationData: AuthenticationService,
+    private voteService: VoteService,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog
@@ -32,7 +36,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.authenticationData.currentUsername.subscribe(username => this.username = username)
     this.authenticationData.currentRoomId.subscribe(roomId => this.roomId = roomId)
+    this.authenticationData.currentHost.subscribe(isHost => this.isHost = isHost)
 
+    this.voteService.currentVote.subscribe(votedMovie => this.votedMovie = votedMovie)
+
+    this.movieService.getMovies(this.roomId).subscribe(movies => this.movies = movies)
+  }
+
+  refresh() {
     this.movieService.getMovies(this.roomId).subscribe(movies => this.movies = movies)
   }
 
@@ -49,10 +60,22 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl(`/movie/${movie.title}/${movie.imdbId}`);
   }
 
+  voteOnSelected(movie: MovieDb) {
+    console.log('voted for:' + movie.title)
+    this.voteService.changeVote(movie)
+  }
+
   chooseRandomMovie() {
     var index = Math.floor(Math.random() * this.movies.length) + 0  
     
     this.openDialog('Choosen Movie', this.movies[index].title)
+  }
+
+  votedFor(movie: MovieDb): boolean {
+    //console.log('vote:' + this.votedMovie.title)
+    console.log('actualmovie:' + movie.title)
+    console.log('resutl:' + (this.votedMovie == movie))
+    return this.votedMovie != null && this.votedMovie.imdbId == movie.imdbId
   }
 
   private formatSearch(search: string): string {

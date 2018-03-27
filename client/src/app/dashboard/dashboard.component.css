@@ -21,3 +21,11 @@ mat-card {
 .room {
   color: #F50057
 }
+
+.vote {
+  color: #F50057
+}
+
+.empty-list {
+  text-align: center
+}

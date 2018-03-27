@@ -21,6 +21,7 @@ import { AuthenticationService } from './services/authentication.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatMenuModule} from '@angular/material/menu';
+import { VoteService } from './services/vote.service';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import {MatMenuModule} from '@angular/material/menu';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [MovieService, AuthenticationService],
+  providers: [MovieService, AuthenticationService, VoteService],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent]
 })

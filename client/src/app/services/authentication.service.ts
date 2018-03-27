@@ -10,15 +10,21 @@ export class AuthenticationService {
   private roomIdSource = new BehaviorSubject<string>("");
   currentRoomId = this.roomIdSource.asObservable();
 
+  private hostSource = new BehaviorSubject<boolean>(false);
+  currentHost = this.hostSource.asObservable();
+
   constructor() { }
 
   changeUsername(username: string) {
-    console.log('changed user:' + username)
     this.usernameSource.next(username)
   }
+
   changeRoomId(roomId: string) {
-    console.log('change room:' + roomId)
     this.roomIdSource.next(roomId)
+  }
+
+  changeHost(host: boolean) {
+    this.hostSource.next(host)
   }
 
 }
