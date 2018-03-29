@@ -7,23 +7,26 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Movie } from '../model/movie'
 import { MovieDb } from '../model/moviedb'
-import { OmdbApiKey } from "../apikey";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { MovieChooserConfiguration } from '../configuration/movieChooserConfig'
+import { OmdbConfiguration } from '../configuration/omdbConfig'
 
 @Injectable()
 export class MovieService {
 
   private apiKey: string
-  private moviesUrl = 'http://localhost:3000/movies'
+  private moviesUrl: string
 
   constructor(
     private http: HttpClient
   )  { 
-    this.apiKey = OmdbApiKey.getApiKey()
+    this.apiKey = OmdbConfiguration.getApiKey()
+    this.moviesUrl = MovieChooserConfiguration.getMovieChooserEndpointUrl()
   }
 
   getMovie(name : string) : Observable<Movie> {
-    return this.http.get<Movie>(`http://www.omdbapi.com/?t=${name}&apikey=${this.apiKey}`)
+    return this.http.get<Movie>(`https://www.omdbapi.com/?t=${name}&apikey=${this.apiKey}`)
   }
 
   getMovies(roomId: string) : Observable<MovieDb[]> {

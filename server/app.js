@@ -10,6 +10,8 @@ var moviesRouter = require('./routes/movies');
 var app = express();
 // load mongoose package
 var mongoose = require('mongoose');
+var mongoConfig = require('./config/mongodbConfig.json');
+const mongoUrl = `mongodb://${mongoConfig.username}:${mongoConfig.password}@${mongoConfig.url}/${mongoConfig.collection}`;
 // Use native Node promises
 mongoose.Promise = global.Promise;
 
@@ -43,7 +45,7 @@ app.use(function(err, req, res, next) {
 });
 
 // connect to MongoDB
-mongoose.connect('mongodb://localhost/movies')
+mongoose.connect(mongoUrl)
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
