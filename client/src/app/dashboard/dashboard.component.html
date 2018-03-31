@@ -1,50 +1,61 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Welcome <span class="username">{{username}}</span> To Room <span class="room">{{roomId}}</span></span>
-    <span class="spacer"></span>    
+    <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span> 
     <button mat-icon-button (click)="refresh()">
         <mat-icon>refresh</mat-icon>
-    </button>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
     </button>
 
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-card *ngIf="isHost">
-    <button mat-raised-button color="primary" (click)="chooseRandomMovie()">Choose Random Movie</button>
-    <button mat-raised-button color="primary" (click)="chooseMovieByVotes()">Choose Movie By Votes</button>
-</mat-card>
-<mat-card>
-  <mat-form-field>
-    <mat-icon matPrefix>search</mat-icon>
-    <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Search" >
-  </mat-form-field>
-  <span *ngIf="votedMovie != null">{{votedMovie.title}}</span>
-  <button [disabled]="votedMovie == null" style="float: right" mat-raised-button color="primary" (click)="submitVote()">Submit Vote</button>
-  <mat-list *ngIf="movies.length" >    
-      <h3 matSubheader>Suggested Movies</h3> 
-    <mat-list-item *ngFor="let movie of movies">  
-      <mat-icon mat-list-icon color="accent">movie</mat-icon> 
-      <h4 mat-line (click)="onSelect(movie)">{{movie.title}}</h4>
-      <p mat-line (click)="onSelect(movie)">suggested by <span class="username">{{movie.user}}</span></p>
-      <span class="vote" *ngIf="votedFor(movie)">+1</span>
-      <button mat-icon-button (click)="voteOnSelected(movie)">
-        <mat-icon>keyboard_arrow_up</mat-icon>
-      </button>
-    </mat-list-item>
-  </mat-list>
-  <div class="empty-list" *ngIf="!movies.length">
-    <mat-icon>movie</mat-icon>
-    <br/>
-    <h3>Search and add a Movie!</h3>
-  </div>
-  
-</mat-card>
 
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="chooseRandomMovie()">Choose Random Movie</button>
-  <button mat-menu-item>Item 2</button>
-</mat-menu>
+<mat-drawer-container autosize>
+  <mat-drawer #drawer class="sidenav" mode="over">
+    <mat-list> 
+        <mat-list-item> 
+          <mat-icon mat-list-icon color="accent">person</mat-icon>  
+          <span class="username">{{username}}</span>
+        </mat-list-item>
+        <mat-list-item> 
+          <mat-icon mat-list-icon color="accent">room</mat-icon>  
+          <span class="room">{{roomId}}</span>
+        </mat-list-item>
+    </mat-list>
+    <button *ngIf="isHost" mat-raised-button color="primary" (click)="chooseRandomMovie()">Choose Random Movie</button>
+    <br/>
+    <button *ngIf="isHost" mat-raised-button color="primary" (click)="chooseMovieByVotes()">Choose Movie By Votes</button>  
+  </mat-drawer>
+
+  <mat-card>
+    <mat-form-field>
+      <mat-icon matPrefix>search</mat-icon>
+      <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Search" >
+    </mat-form-field>
+    <mat-list *ngIf="movies.length" >    
+        <h3 matSubheader>Suggested Movies</h3> 
+      <mat-list-item *ngFor="let movie of movies">  
+        <mat-icon mat-list-icon color="accent">movie</mat-icon> 
+        <h4 mat-line (click)="onSelect(movie)">{{movie.title}}</h4>
+        <p mat-line (click)="onSelect(movie)">suggested by <span class="username">{{movie.user}}</span></p>
+        <span class="vote" *ngIf="votedFor(movie)">+1</span>
+        <button mat-icon-button (click)="voteOnSelected(movie)">
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+    <div class="submit-vote" *ngIf="movies.length">
+      <button  [disabled]="votedMovie == null" mat-raised-button color="primary" (click)="submitVote()">Submit Vote</button>
+    </div>
+    <div class="empty-list" *ngIf="!movies.length">
+      <mat-icon>movie</mat-icon>
+      <br/>
+      <h3>Search and add a Movie!</h3>
+    </div>
+    
+  </mat-card>
+
+</mat-drawer-container>
   
 

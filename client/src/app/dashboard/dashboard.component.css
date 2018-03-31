@@ -1,13 +1,13 @@
-/*.container {
-    display: flex;
-    flex-direction: column;
-  }*/
 mat-form-field {
     width: 100%
 }
 
 mat-card {
   margin: 14px
+}
+
+button {
+  margin: 5px;
 }
 
 .spacer {
@@ -26,6 +26,14 @@ mat-card {
   color: #F50057
 }
 
+.submit-vote {
+  text-align: right
+}
+
 .empty-list {
   text-align: center
+}
+
+.sidenav {
+  padding: 10px;
 }

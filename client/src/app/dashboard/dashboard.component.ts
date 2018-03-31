@@ -31,7 +31,9 @@ export class DashboardComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog
-  ) { }
+  ) { 
+    this.movies = []
+  }
 
   ngOnInit() {
     this.authenticationData.currentUsername.subscribe(username => this.username = username)
@@ -71,11 +73,43 @@ export class DashboardComponent implements OnInit {
     this.openDialog('Choosen Movie', this.movies[index].title)
   }
 
+  chooseMovieByVotes() {
+    this.voteService.getMovieVotes(this.roomId).subscribe(
+      res => {
+        this.openDialog('The People voted', this.formatVotes(res))
+      },
+      err => {
+        console.log("Error occured");
+      }
+    )
+  }
+
+  submitVote() {
+    this.voteService.submitVote(this.votedMovie).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
   votedFor(movie: MovieDb): boolean {
     //console.log('vote:' + this.votedMovie.title)
-    console.log('actualmovie:' + movie.title)
-    console.log('resutl:' + (this.votedMovie == movie))
+    //console.log('actualmovie:' + movie.title)
+    console.log(movie)
     return this.votedMovie != null && this.votedMovie.imdbId == movie.imdbId
+  }
+
+  private formatVotes(movies: MovieDb[]): string {
+    var result = ""
+    
+    for (let movie of movies) {
+      result += `${movie.title} got ${movie.votes} votes\n`
+    }
+
+    return result
   }
 
   private formatSearch(search: string): string {

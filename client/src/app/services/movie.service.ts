@@ -23,14 +23,15 @@ export class MovieService {
   }
 
   getMovies(roomId: string) : Observable<MovieDb[]> {
-    return this.http.get<MovieDb[]>(`${this.moviesUrl}/${roomId}`)
+    return this.http.get<MovieDb[]>(`${this.moviesUrl}/movies/${roomId}`)
   }
 
   addMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    
-    return this.http.post(this.moviesUrl, {title: movie.Title, imdbId: movie.imdbID, user: username, roomId: roomId})
+    return this.http.post(`${this.moviesUrl}/movies`, 
+      new MovieDb(movie.Title, movie.imdbID, username, roomId))
   }
 
   deleteMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    
-    return this.http.delete(`${this.moviesUrl}/${movie.imdbID}/${username}/${roomId}`)
+    return this.http.delete(`${this.moviesUrl}/movies/${movie.imdbID}/${username}/${roomId}`)
   }
 }

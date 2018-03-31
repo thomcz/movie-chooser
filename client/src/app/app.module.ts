@@ -22,6 +22,7 @@ import { AuthenticationService } from './services/authentication.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { VoteService } from './services/vote.service';
 
 
@@ -41,6 +42,7 @@ import { VoteService } from './services/vote.service';
     MatDividerModule,
     MatButtonModule,
     MatMenuModule,
+    MatSidenavModule,
     MatInputModule,
     MatCardModule,
     MatDialogModule,

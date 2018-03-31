@@ -3,6 +3,7 @@ var MovieSchema = new mongoose.Schema({
   title: String,
   imdbId: String,
   user: String,
-  roomId: String
+  roomId: String,
+  votes: Number
 });
 module.exports = mongoose.model('Movie', MovieSchema);
