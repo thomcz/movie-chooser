@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MovieDb } from '../model/moviedb';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Vote } from '../model/vote';
 import { HttpClient } from '@angular/common/http';
 import { MovieChooserConfiguration } from '../configuration/movieChooserConfig';
 import { Observable } from 'rxjs/Observable';
-import { Voted } from '../model/voted';
 
 @Injectable()
 export class VoteService {
