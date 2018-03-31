@@ -10,23 +10,16 @@ import { MovieDb } from '../model/moviedb'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { MovieChooserConfiguration } from '../configuration/movieChooserConfig'
-import { OmdbConfiguration } from '../configuration/omdbConfig'
 
 @Injectable()
 export class MovieService {
 
-  private apiKey: string
   private moviesUrl: string
 
   constructor(
     private http: HttpClient
   )  { 
-    this.apiKey = OmdbConfiguration.getApiKey()
     this.moviesUrl = MovieChooserConfiguration.getMovieChooserEndpointUrl()
-  }
-
-  getMovie(name : string) : Observable<Movie> {
-    return this.http.get<Movie>(`https://www.omdbapi.com/?t=${name}&apikey=${this.apiKey}`)
   }
 
   getMovies(roomId: string) : Observable<MovieDb[]> {

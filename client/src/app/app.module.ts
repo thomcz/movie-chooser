@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MovieService } from './services/movie.service';
+import { OmdbService } from "./services/omdb.service";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -47,7 +48,7 @@ import { VoteService } from './services/vote.service';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [MovieService, AuthenticationService, VoteService],
+  providers: [MovieService, OmdbService, AuthenticationService, VoteService],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent]
 })

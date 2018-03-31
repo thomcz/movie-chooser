@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Movie } from '../model/movie';
 import { MovieService } from "../services/movie.service";
 import { AuthenticationService } from '../services/authentication.service';
+import { OmdbService } from '../services/omdb.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -21,6 +22,7 @@ export class MovieDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
+    private omdbService: OmdbService,
     private movieService: MovieService,
     private authenticationData: AuthenticationService,
     private location: Location
@@ -35,7 +37,7 @@ export class MovieDetailsComponent implements OnInit {
   getMovie(): void {
     const name = this.route.snapshot.paramMap.get('name');
     this.imdbId = this.route.snapshot.paramMap.get('imdbId');
-    this.movieService.getMovie(this.formatSearch(name)).subscribe(movie => this.movie = movie);
+    this.omdbService.getMovie(this.formatSearch(name)).subscribe(movie => this.movie = movie);
   }
 
   goBack(): void {
@@ -73,7 +75,6 @@ export class MovieDetailsComponent implements OnInit {
   showDeleteButton(): boolean {
     return this.imdbId != null
   }
-
 
   private formatSearch(search: string): string {
     return search.trim().split('-').join(' ');
