@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   private roomId: string
   private isHost: boolean
   private votedMovie: MovieDb
+  private voted: boolean
 
   constructor(
     private movieService: MovieService,
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit {
     public dialog: MatDialog
   ) { 
     this.movies = []
+    this.voted = false
   }
 
   ngOnInit() {
@@ -94,6 +96,7 @@ export class DashboardComponent implements OnInit {
     this.voteService.submitVote(this.votedMovie).subscribe(
       res => {
         this.openDialog('You Voted for:', this.votedMovie.title)
+        this.voted = true
       },
       err => {
         console.log(err);

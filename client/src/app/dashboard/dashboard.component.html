@@ -40,13 +40,13 @@
         <h4 mat-line (click)="onSelect(movie)">{{movie.title}}</h4>
         <p mat-line (click)="onSelect(movie)">suggested by <span class="username">{{movie.user}}</span></p>
         <span class="vote" *ngIf="votedFor(movie)">+1</span>
-        <button mat-icon-button (click)="voteOnSelected(movie)">
+        <button [disabled]="voted == true" mat-icon-button (click)="voteOnSelected(movie)">
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
       </mat-list-item>
     </mat-list>
     <div class="submit-vote" *ngIf="movies.length">
-      <button  [disabled]="votedMovie == null" mat-raised-button color="primary" (click)="submitVote()">Submit Vote</button>
+      <button [disabled]="votedMovie == null || voted == true" mat-raised-button color="primary" (click)="submitVote()">Submit Vote</button>
     </div>
     <div class="empty-list" *ngIf="!movies.length">
       <mat-icon>movie</mat-icon>
