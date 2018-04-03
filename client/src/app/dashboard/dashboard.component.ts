@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
   submitVote() {
     this.voteService.submitVote(this.votedMovie).subscribe(
       res => {
-        console.log(res);
+        this.openDialog('You Voted for:', this.votedMovie.title)
       },
       err => {
         console.log(err);
@@ -102,9 +102,6 @@ export class DashboardComponent implements OnInit {
   }
 
   votedFor(movie: MovieDb): boolean {
-    //console.log('vote:' + this.votedMovie.title)
-    //console.log('actualmovie:' + movie.title)
-    console.log(movie)
     return this.votedMovie != null && this.votedMovie.imdbId == movie.imdbId
   }
 
