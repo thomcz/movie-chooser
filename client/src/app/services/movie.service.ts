@@ -19,19 +19,23 @@ export class MovieService {
   constructor(
     private http: HttpClient
   )  { 
-    this.moviesUrl = MovieChooserConfiguration.getMovieChooserEndpointUrl()
+    this.moviesUrl = `${MovieChooserConfiguration.getMovieChooserEndpointUrl()}/movies`
   }
 
   getMovies(roomId: string) : Observable<MovieDb[]> {
-    return this.http.get<MovieDb[]>(`${this.moviesUrl}/movies/${roomId}`)
+    return this.http.get<MovieDb[]>(`${this.moviesUrl}/${roomId}`)
+  }
+
+  getMovie(roomId: string, imdbId: string) : Observable<MovieDb> {
+    return this.http.get<MovieDb>(`${this.moviesUrl}/${roomId}/${imdbId}`)
   }
 
   addMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    
-    return this.http.post(`${this.moviesUrl}/movies`, 
+    return this.http.post(`${this.moviesUrl}`, 
       new MovieDb(movie.Title, movie.imdbID, username, roomId))
   }
 
   deleteMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    
-    return this.http.delete(`${this.moviesUrl}/movies/${movie.imdbID}/${username}/${roomId}`)
+    return this.http.delete(`${this.moviesUrl}/${movie.imdbID}/${username}/${roomId}`)
   }
 }

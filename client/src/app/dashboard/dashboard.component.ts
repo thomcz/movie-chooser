@@ -55,11 +55,17 @@ export class DashboardComponent implements OnInit {
       this.openDialog('Information', 'Enter Movie Name');
       return;
     }
-    this.router.navigateByUrl(`/movie/${formatted}`);
+    var imdbId = this.extractImdbId(formatted)
+    console.log("imdbid: " + imdbId)
+    if (imdbId != "") {
+      this.router.navigateByUrl(`/movie/id/${imdbId}`);
+    } else {
+      this.router.navigateByUrl(`/movie/${formatted}`);
+    }
   }
 
   onSelect(movie: MovieDb) {
-    this.router.navigateByUrl(`/movie/${movie.title}/${movie.imdbId}`);
+    this.router.navigateByUrl(`/movie/id/${movie.imdbId}`);
   }
 
   voteOnSelected(movie: MovieDb) {
@@ -113,7 +119,18 @@ export class DashboardComponent implements OnInit {
   }
 
   private formatSearch(search: string): string {
-    return search.trim().split(' ').join('-');
+    return search.trim();
+  }
+
+  private extractImdbId(search: string): string {
+    var res = search.match("tt\\d{7}");
+    if (res == null) {
+      return ""
+    }
+    if (res.length > 0) {
+      return res[0]
+    }
+    return ""
   }
 
   private openDialog(title: string, message: string) {

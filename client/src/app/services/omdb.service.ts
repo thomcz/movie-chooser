@@ -13,12 +13,15 @@ export class OmdbService {
   constructor(
     private http: HttpClient
   ) {
-    
     this.apiKey = OmdbConfiguration.getApiKey()
    }
 
-  getMovie(name : string) : Observable<Movie> {
+   getMovieByName(name : string) : Observable<Movie> {
     return this.http.get<Movie>(`https://www.omdbapi.com/?t=${name}&apikey=${this.apiKey}`)
+  }
+
+  getMovieById(imdbId : string) : Observable<Movie> {
+    return this.http.get<Movie>(`https://www.omdbapi.com/?i=${imdbId}&apikey=${this.apiKey}`)
   }
 
 }

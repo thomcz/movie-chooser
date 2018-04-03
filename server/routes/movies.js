@@ -12,10 +12,18 @@ router.get('/', function(req, res, next) {
 
 /* GET /movies/roomid */
 router.get('/:id', function(req, res, next) {
-    Movie.find({'roomId': req.params.id}, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
+  Movie.find({'roomId': req.params.id}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/* GET /movies/roomid/imdbId */
+router.get('/:id/:imdbId', function(req, res, next) {
+  Movie.findOne({'roomId': req.params.id, 'imdbId': req.params.imdbId}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 /* POST /movies */

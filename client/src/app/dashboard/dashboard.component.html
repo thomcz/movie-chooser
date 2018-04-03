@@ -31,7 +31,7 @@
   <mat-card>
     <mat-form-field>
       <mat-icon matPrefix>search</mat-icon>
-      <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Search" >
+      <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Title Or IMDb Link" >
     </mat-form-field>
     <mat-list *ngIf="movies.length" >    
         <h3 matSubheader>Suggested Movies</h3> 
