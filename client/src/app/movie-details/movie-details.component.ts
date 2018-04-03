@@ -6,6 +6,7 @@ import { Movie } from '../model/movie';
 import { MovieService } from "../services/movie.service";
 import { AuthenticationService } from '../services/authentication.service';
 import { OmdbService } from '../services/omdb.service';
+import { MovieDb } from '../model/moviedb';
 
 @Component({
   selector: 'app-movie-details',
@@ -16,9 +17,9 @@ import { OmdbService } from '../services/omdb.service';
 export class MovieDetailsComponent implements OnInit {
 
   movie: Movie;
+  movieDb: MovieDb
   private username: string
   private roomId: string
-  private imdbId: string
 
   constructor(
     private route: ActivatedRoute, 
@@ -36,8 +37,13 @@ export class MovieDetailsComponent implements OnInit {
 
   getMovie(): void {
     const name = this.route.snapshot.paramMap.get('name');
-    this.imdbId = this.route.snapshot.paramMap.get('imdbId');
-    this.omdbService.getMovie(this.formatSearch(name)).subscribe(movie => this.movie = movie);
+    const imdbId = this.route.snapshot.paramMap.get('imdbId');
+    this.movieService.getMovie(this.roomId, imdbId).subscribe(movieDb => this.movieDb = movieDb)
+    if (imdbId != null) {
+      this.omdbService.getMovieById(imdbId).subscribe(movie => this.movie = movie);
+    } else {
+      this.omdbService.getMovieByName(name).subscribe(movie => this.movie = movie);
+    }
   }
 
   goBack(): void {
@@ -69,15 +75,10 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   showAddButton(): boolean {
-    return this.imdbId == null
+    return this.movieDb == null
   }
 
   showDeleteButton(): boolean {
-    return this.imdbId != null
+    return this.movieDb != null && this.movieDb.user == this.username
   }
-
-  private formatSearch(search: string): string {
-    return search.trim().split('-').join(' ');
-  }
-
 }
