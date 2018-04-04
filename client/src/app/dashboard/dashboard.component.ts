@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
   chooseMovieByVotes() {
     this.voteService.getMovieVotes(this.roomId).subscribe(
       res => {
-        this.openDialog('The People voted', this.formatVotes(res))
+        this.router.navigateByUrl(`/votingresult`);
       },
       err => {
         console.log("Error occured");
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
   submitVote() {
     this.voteService.submitVote(this.votedMovie).subscribe(
       res => {
-        this.openDialog('You Voted for:', this.votedMovie.title)
+        this.openDialog('You Voted for', this.votedMovie.title)
         this.voteService.changeHasVoted(true)
       },
       err => {

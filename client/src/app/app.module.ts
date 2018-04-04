@@ -24,6 +24,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { VoteService } from './services/vote.service';
+import { VotingResultComponent } from './voting-result/voting-result.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { VoteService } from './services/vote.service';
     MovieDetailsComponent,
     DashboardComponent,
     MainComponent,
-    DialogComponent
+    DialogComponent,
+    VotingResultComponent
   ],
   imports: [
     BrowserModule,

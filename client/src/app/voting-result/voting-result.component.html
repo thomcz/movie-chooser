@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-list *ngIf="movies != null && movies.length" >    
+    <h3 matSubheader>Voting Results</h3> 
+  <mat-list-item *ngFor="let movie of movies" (click)="onSelect(movie)">  
+    <mat-icon mat-list-icon color="accent">movie</mat-icon> 
+    <h4 mat-line>{{movie.title}}</h4>
+    <p mat-line>suggested by <span class="username">{{movie.user}}</span></p>
+    <span class="vote">{{movie.votes}}</span> 
+    <mat-icon color="accent">thumb_up</mat-icon> 
+  </mat-list-item>
+</mat-list>
+</mat-card>
