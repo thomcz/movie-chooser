@@ -28,4 +28,8 @@ export class VotingResultComponent implements OnInit {
   onSelect(movie: MovieDb) {
     this.router.navigateByUrl(`/movie/id/${movie.imdbId}`);
   }
+
+  refresh() {
+    this.voteService.getMovieVotes(this.roomId).subscribe(movies => this.movies = movies)
+  }
 }

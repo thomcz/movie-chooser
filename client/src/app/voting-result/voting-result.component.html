@@ -1,3 +1,12 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+    </button>
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <mat-card>
   <mat-list *ngIf="movies != null && movies.length" >    
     <h3 matSubheader>Voting Results</h3> 
