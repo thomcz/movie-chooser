@@ -97,7 +97,9 @@ export class DashboardComponent implements OnInit {
       res => {
         this.openDialog('You Voted for', this.votedMovie.title);
         this.voteService.changeHasVoted(true);
-        this.router.navigateByUrl(`/votingresult`);
+        if (!this.isHost) {
+          this.router.navigateByUrl(`/votingresult`);
+        }
       },
       err => {
         console.log(err);
