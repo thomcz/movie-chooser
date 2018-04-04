@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   private roomId: string
   private isHost: boolean
   private votedMovie: MovieDb
-  private voted: boolean
+  private hasVoted: boolean
 
   constructor(
     private movieService: MovieService,
@@ -34,7 +34,6 @@ export class DashboardComponent implements OnInit {
     public dialog: MatDialog
   ) { 
     this.movies = []
-    this.voted = false
   }
 
   ngOnInit() {
@@ -42,6 +41,7 @@ export class DashboardComponent implements OnInit {
     this.authenticationData.currentRoomId.subscribe(roomId => this.roomId = roomId)
     this.authenticationData.currentHost.subscribe(isHost => this.isHost = isHost)
 
+    this.voteService.currentHasVoted.subscribe(hasVoted => this.hasVoted = hasVoted)
     this.voteService.currentVote.subscribe(votedMovie => this.votedMovie = votedMovie)
 
     this.movieService.getMovies(this.roomId).subscribe(movies => this.movies = movies)
@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit {
     this.voteService.submitVote(this.votedMovie).subscribe(
       res => {
         this.openDialog('You Voted for:', this.votedMovie.title)
-        this.voted = true
+        this.voteService.changeHasVoted(true)
       },
       err => {
         console.log(err);
