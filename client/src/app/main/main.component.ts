@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { RoomService } from '../services/room.service';
+import { Room } from '../model/room';
+import { State } from '../model/states';
 
 @Component({
   selector: 'app-main',
@@ -19,6 +22,7 @@ export class MainComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationData: AuthenticationService,
+    private roomService: RoomService,
     public dialog: MatDialog
   ) { }
 
@@ -38,8 +42,16 @@ export class MainComponent implements OnInit {
     this.authenticationData.changeRoomId(this.createRandomRoomId())
     this.authenticationData.changeUsername(username)
     this.authenticationData.changeHost(true)
+    
+    this.roomService.addRoom(new Room(this.roomId, State.ADDING)).subscribe(
+      res => {
+        this.router.navigateByUrl('/dashboard');
+      },
+      err => {
+        console.log("Error occured");
+      }
+    );
 
-    this.router.navigateByUrl('/dashboard');
   }
 
   joinRoom(roomId: string, username: string): void {
@@ -59,7 +71,9 @@ export class MainComponent implements OnInit {
   }
 
   private createRandomRoomId(): string {
-    return Math.random().toString(36).substring(7);    
+    const roomId = Math.random().toString(36).substring(7);
+    this.authenticationData.changeRoomId(roomId)
+    return roomId;
   }
 
   private openDialog(title: string, message: string) {

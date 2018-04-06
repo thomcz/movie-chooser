@@ -8,6 +8,9 @@ import { AuthenticationService } from '../services/authentication.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { VoteService } from '../services/vote.service';
+import { TimerObservable } from "rxjs/observable/TimerObservable";
+import { State } from '../model/states';
+import { StateService } from '../services/state.service';
 
 
 @Component({
@@ -24,16 +27,20 @@ export class DashboardComponent implements OnInit {
   private isHost: boolean
   private votedMovie: MovieDb
   private hasVoted: boolean
+  private interval: number
+  private state: State
 
   constructor(
     private movieService: MovieService,
     private authenticationData: AuthenticationService,
     private voteService: VoteService,
+    private stateService: StateService,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog
   ) { 
     this.movies = []
+    this.interval = 5000
   }
 
   ngOnInit() {
@@ -44,7 +51,13 @@ export class DashboardComponent implements OnInit {
     this.voteService.currentHasVoted.subscribe(hasVoted => this.hasVoted = hasVoted)
     this.voteService.currentVote.subscribe(votedMovie => this.votedMovie = votedMovie)
 
-    this.movieService.getMovies(this.roomId).subscribe(movies => this.movies = movies)
+    TimerObservable.create(0, this.interval).subscribe(() => {
+        this.stateService.getState(this.roomId).subscribe(state => this.state = state)
+    });
+
+    TimerObservable.create(0, this.interval).subscribe(() => {
+        this.movieService.getMovies(this.roomId).subscribe(movies => this.movies = movies)
+    });
   }
 
   refresh() {
@@ -76,18 +89,27 @@ export class DashboardComponent implements OnInit {
   }
 
   chooseRandomMovie() {
-    var index = Math.floor(Math.random() * this.movies.length) + 0  
-    
+    this.stateService.setState(this.roomId, State.RANDOM).subscribe(
+      res => {
+      //choose random Movie by setting it in Room object
+      }
+    )
+    var index = Math.floor(Math.random() * this.movies.length) + 0     
     this.openDialog('Choosen Movie', this.movies[index].title)
   }
 
-  chooseMovieByVotes() {
-    this.voteService.getMovieVotes(this.roomId).subscribe(
+  startVoting() {
+    this.stateService.setState(this.roomId, State.VOTING).subscribe(
       res => {
-        this.router.navigateByUrl(`/votingresult`);
-      },
-      err => {
-        console.log("Error occured");
+        this.state = State.VOTING
+      }
+    )
+  }
+
+  chooseMovieByVotes() {
+    this.stateService.setState(this.roomId, State.RESULT).subscribe(
+      res => {
+        this.state = State.RESULT
       }
     )
   }
@@ -97,9 +119,6 @@ export class DashboardComponent implements OnInit {
       res => {
         this.openDialog('You Voted for', this.votedMovie.title);
         this.voteService.changeHasVoted(true);
-        if (!this.isHost) {
-          this.router.navigateByUrl(`/votingresult`);
-        }
       },
       err => {
         console.log(err);
@@ -109,6 +128,22 @@ export class DashboardComponent implements OnInit {
 
   votedFor(movie: MovieDb): boolean {
     return this.votedMovie != null && this.votedMovie.imdbId == movie.imdbId
+  }
+
+  isAddingState(): boolean {
+    return this.state == State.ADDING;
+  }
+
+  isVotingState(): boolean {
+    return this.state == State.VOTING;
+  }
+
+  isRandomState(): boolean {
+    return this.state == State.RANDOM;
+  }
+
+  isVotingResultState(): boolean {
+    return this.state == State.RESULT;
   }
 
   private formatVotes(movies: MovieDb[]): string {

@@ -25,6 +25,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { VoteService } from './services/vote.service';
 import { VotingResultComponent } from './voting-result/voting-result.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { StateService } from './services/state.service';
+import { RoomService } from './services/room.service';
 
 
 @NgModule({
@@ -43,8 +46,10 @@ import { VotingResultComponent } from './voting-result/voting-result.component';
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
+    MatStepperModule,
     MatMenuModule,
     MatSidenavModule,
+    
     MatInputModule,
     MatCardModule,
     MatDialogModule,
@@ -52,7 +57,7 @@ import { VotingResultComponent } from './voting-result/voting-result.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [MovieService, OmdbService, AuthenticationService, VoteService],
+  providers: [MovieService, OmdbService, AuthenticationService, VoteService, StateService, RoomService],
   bootstrap: [AppComponent],
   entryComponents: [DialogComponent]
 })

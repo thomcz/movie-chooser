@@ -9,7 +9,7 @@
     </button>
 
   </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar> 
 
 <mat-drawer-container autosize>
   <mat-drawer #drawer class="sidenav" mode="over">
@@ -25,11 +25,13 @@
     </mat-list>
     <button *ngIf="isHost" mat-raised-button color="primary" (click)="chooseRandomMovie()">Choose Random Movie</button>
     <br/>
-    <button *ngIf="isHost" mat-raised-button color="primary" (click)="chooseMovieByVotes()">Choose Movie By Votes</button>  
+    <button *ngIf="isHost && isAddingState()" mat-raised-button color="primary" (click)="startVoting()">Start Voting</button>
+    <br/>
+    <button *ngIf="isHost && isVotingState()" mat-raised-button color="primary" (click)="chooseMovieByVotes()">Choose Movie By Votes</button>  
   </mat-drawer>
 
   <mat-card>
-    <mat-form-field>
+    <mat-form-field *ngIf="isAddingState()">
       <mat-icon matPrefix>search</mat-icon>
       <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Title Or IMDb Link" >
     </mat-form-field>
@@ -39,13 +41,15 @@
         <mat-icon mat-list-icon color="accent">movie</mat-icon> 
         <h4 mat-line (click)="onSelect(movie)">{{movie.title}}</h4>
         <p mat-line (click)="onSelect(movie)">suggested by <span class="username">{{movie.user}}</span></p>
-        <span class="vote" *ngIf="votedFor(movie)">+1</span>
-        <button [disabled]="hasVoted" mat-icon-button (click)="voteOnSelected(movie)">
+        <span class="vote" *ngIf="votedFor(movie) && isVotingState()">+1</span>
+        <button *ngIf="isVotingState()" [disabled]="hasVoted" mat-icon-button (click)="voteOnSelected(movie)">
           <mat-icon>keyboard_arrow_up</mat-icon>
         </button>
+        <span *ngIf="isVotingResultState()" class="vote">{{movie.votes}}</span> 
+        <mat-icon *ngIf="isVotingResultState()" color="accent">thumb_up</mat-icon>
       </mat-list-item>
     </mat-list>
-    <div class="submit-vote" *ngIf="movies.length">
+    <div class="submit-vote" *ngIf="movies.length && isVotingState()">
       <button [disabled]="votedMovie == null || hasVoted" mat-raised-button color="primary" (click)="submitVote()">Submit Vote</button>
     </div>
     <div class="empty-list" *ngIf="!movies.length">

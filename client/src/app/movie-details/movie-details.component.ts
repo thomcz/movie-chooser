@@ -16,8 +16,8 @@ import { MovieDb } from '../model/moviedb';
 
 export class MovieDetailsComponent implements OnInit {
 
-  movie: Movie;
-  movieDb: MovieDb
+  private movie: Movie;
+  private movieDb: MovieDb
   private username: string
   private roomId: string
 
@@ -42,7 +42,12 @@ export class MovieDetailsComponent implements OnInit {
     if (imdbId != null) {
       this.omdbService.getMovieById(imdbId).subscribe(movie => this.movie = movie);
     } else {
-      this.omdbService.getMovieByName(name).subscribe(movie => this.movie = movie);
+      this.omdbService.getMovieByName(name).subscribe(movie => {
+        this.movie = movie
+      },
+      err => {
+        
+      });
     }
   }
 
@@ -75,6 +80,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   showAddButton(): boolean {
+    console.log(this.movie)
     return this.movieDb == null
   }
 
