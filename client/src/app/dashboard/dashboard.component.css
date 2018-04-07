@@ -1,5 +1,5 @@
 mat-form-field {
-    width: 100%
+    width: 100%;
 }
 
 mat-card {
@@ -37,3 +37,11 @@ button {
 .sidenav {
   padding: 10px;
 }
+
+.mat-focused .mat-form-field-label {
+  color: #5cb53f !important;
+  }
+  
+  .mat-form-field-ripple {
+  background-color: #5cb53f !important;
+  }

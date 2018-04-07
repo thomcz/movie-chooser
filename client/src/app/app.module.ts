@@ -28,6 +28,9 @@ import { VotingResultComponent } from './voting-result/voting-result.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { StateService } from './services/state.service';
 import { RoomService } from './services/room.service';
+import { FormsModule } from '@angular/forms';
+import { ClipboardModule } from 'ngx-clipboard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -46,7 +49,7 @@ import { RoomService } from './services/room.service';
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-    MatStepperModule,
+    MatStepperModule, 
     MatMenuModule,
     MatSidenavModule,
     
@@ -55,7 +58,10 @@ import { RoomService } from './services/room.service';
     MatDialogModule,
     MatToolbarModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ClipboardModule,
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [MovieService, OmdbService, AuthenticationService, VoteService, StateService, RoomService],
   bootstrap: [AppComponent],

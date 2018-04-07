@@ -6,6 +6,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { RoomService } from '../services/room.service';
 import { Room } from '../model/room';
 import { State } from '../model/states';
+import { StateService } from '../services/state.service';
 
 @Component({
   selector: 'app-main',
@@ -17,12 +18,14 @@ export class MainComponent implements OnInit {
   private username: string
   private roomId: string
   private isHost: boolean
+  private isInvited: boolean
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authenticationData: AuthenticationService,
     private roomService: RoomService,
+    private stateService: StateService,
     public dialog: MatDialog
   ) { }
 
@@ -30,6 +33,12 @@ export class MainComponent implements OnInit {
     this.authenticationData.currentUsername.subscribe(username => this.username = username)
     this.authenticationData.currentRoomId.subscribe(roomId => this.roomId = roomId)
     this.authenticationData.currentHost.subscribe(isHost => this.isHost = isHost)
+
+    const roomId = this.route.snapshot.paramMap.get('roomId');
+    if (roomId != null) {
+      this.authenticationData.changeRoomId(roomId);
+      this.isInvited = true;
+    }
 
   }
 
@@ -66,8 +75,8 @@ export class MainComponent implements OnInit {
 
     this.authenticationData.changeRoomId(roomId)
     this.authenticationData.changeUsername(username)
-
     this.router.navigateByUrl('/dashboard');
+
   }
 
   private createRandomRoomId(): string {

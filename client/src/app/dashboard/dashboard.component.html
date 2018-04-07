@@ -3,9 +3,9 @@
     <button mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
     </button>
-    <span class="spacer"></span> 
-    <button mat-icon-button (click)="refresh()">
-        <mat-icon>refresh</mat-icon>
+    <span class="spacer"></span>
+    <button mat-icon-button ngxClipboard [cbContent]="getRoomLink()" (click)="share()">
+        <mat-icon>share</mat-icon>
     </button>
 
   </mat-toolbar-row>
@@ -32,8 +32,10 @@
 
   <mat-card>
     <mat-form-field *ngIf="isAddingState()">
-      <mat-icon matPrefix>search</mat-icon>
       <input #search (keyup.enter)="searchClick(search.value)" matInput placeholder="Movie Title Or IMDb Link" >
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="searchClick(search.value)">
+        <mat-icon>search</mat-icon>
+      </button>
     </mat-form-field>
     <mat-list *ngIf="movies.length" >    
         <h3 matSubheader>Suggested Movies</h3> 

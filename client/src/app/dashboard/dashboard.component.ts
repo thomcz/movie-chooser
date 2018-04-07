@@ -5,12 +5,13 @@ import { Movie } from '../model/movie';
 import { MovieDb } from '../model/moviedb';
 import { MovieService } from "../services/movie.service";
 import { AuthenticationService } from '../services/authentication.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { VoteService } from '../services/vote.service';
 import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { State } from '../model/states';
 import { StateService } from '../services/state.service';
+import { MovieChooserConfiguration } from '../configuration/movieChooserConfig';
 
 
 @Component({
@@ -37,7 +38,8 @@ export class DashboardComponent implements OnInit {
     private stateService: StateService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) { 
     this.movies = []
     this.interval = 5000
@@ -144,6 +146,17 @@ export class DashboardComponent implements OnInit {
 
   isVotingResultState(): boolean {
     return this.state == State.RESULT;
+  }
+
+  getRoomLink(): string {
+   
+    return `${MovieChooserConfiguration.getMovieChooserClientUrl()}/login/${this.roomId}`
+  }
+
+  share() {
+    this.snackBar.open("link copyed into clipboard", "ok", {
+      duration: 2000,
+    });
   }
 
   private formatVotes(movies: MovieDb[]): string {

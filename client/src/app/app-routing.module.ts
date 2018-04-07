@@ -7,8 +7,9 @@ import { MainComponent } from './main/main.component';
 import { VotingResultComponent } from './voting-result/voting-result.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: 'main', component: MainComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: MainComponent },
+  { path: 'login/:roomId', component: MainComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'movie/:name', component: MovieDetailsComponent },
   { path: 'movie/id/:imdbId', component: MovieDetailsComponent },

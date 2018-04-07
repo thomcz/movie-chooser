@@ -6,9 +6,9 @@
   
   <mat-form-field>
     <mat-icon matPrefix>room</mat-icon>
-    <input #roomCode matInput placeholder="Enter Room Code" (keyup.enter)="joinRoom(roomCode.value, username.value)">
+    <input [disabled]="isInvited" #roomCode matInput placeholder="Enter Room Code" (keyup.enter)="joinRoom(roomCode.value, username.value)" value={{roomId}}>
   </mat-form-field>
   
   <button mat-raised-button color="accent" (click)="joinRoom(roomCode.value, username.value)">Join Room</button>
-  <button mat-raised-button color="primary" (click)="createNewRoom(username.value)">Create New Room</button>
+  <button *ngIf="!isInvited" mat-raised-button color="primary" (click)="createNewRoom(username.value)">Create New Room</button>
 </mat-card>
