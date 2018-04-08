@@ -46,7 +46,7 @@ export class MovieDetailsComponent implements OnInit {
         this.movie = movie
       },
       err => {
-        
+        console.log("error");
       });
     }
   }
@@ -56,6 +56,14 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   addMovie(): void {
+    console.log("add");
+    console.log(this.movie.Title);
+
+    if (this.movie.Title == undefined) {
+      console.log("no movie found");
+      this.location.back();
+      return
+    }
     this.movieService.addMovie(this.movie, this.username, this.roomId).subscribe(
       res => {
         console.log(res);
@@ -81,7 +89,7 @@ export class MovieDetailsComponent implements OnInit {
 
   showAddButton(): boolean {
     console.log(this.movie)
-    return this.movieDb == null
+    return this.movieDb == null && this.movie != null && this.movie.Title != undefined
   }
 
   showDeleteButton(): boolean {

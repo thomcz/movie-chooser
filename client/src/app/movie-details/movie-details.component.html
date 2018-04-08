@@ -13,7 +13,12 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-card>
+<mat-card *ngIf="movie?.Title == undefined" class="text-center">
+    <mat-icon color="accent">sentiment_very_dissatisfied</mat-icon>  
+    <h4>Sorry, your movie was not found! Try another name or paste the IMDb link into the search!</h4>
+</mat-card>
+
+<mat-card *ngIf="movie?.Title != undefined">
     <img class="poster" src={{movie?.Poster}}>
     <mat-list> 
             <mat-list-item> 
