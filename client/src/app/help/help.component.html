@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" *ngIf="displayToolbar" >
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+      </button>  
+    </mat-toolbar-row>
+  </mat-toolbar> 
+
+<mat-card class="div-wrap-center">
+  <h3 class="text-center">Getting Started</h3>
+  <mat-list> 
+    <mat-list-item> 
+      <mat-icon mat-list-icon color="accent">movie</mat-icon>  
+      <h4 mat-line>Search and Add Movies from IMDb</h4>
+      <p mat-line>by searching the movie title or paste the imdb link of the movie into the search</p>
+    </mat-list-item>
+    <mat-list-item> 
+      <mat-icon mat-list-icon color="accent">share</mat-icon>  
+      <h4 mat-line>Share Your Room</h4>
+      <p mat-line>invite your friends by pressing the share button</p>
+    </mat-list-item>
+    <mat-list-item> 
+      <mat-icon mat-list-icon color="accent">thumb_up</mat-icon>  
+      <h4 mat-line>Select a Movie</h4>
+      <p mat-line>the creator of this room can randomly select a movie or starting a vote. All room users can vote!</p>
+    </mat-list-item>
+  </mat-list>
+</mat-card>

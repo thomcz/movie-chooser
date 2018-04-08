@@ -31,6 +31,7 @@ import { RoomService } from './services/room.service';
 import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { HelpComponent } from './help/help.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     DashboardComponent,
     MainComponent,
     DialogComponent,
-    VotingResultComponent
+    VotingResultComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

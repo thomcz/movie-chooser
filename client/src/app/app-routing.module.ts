@@ -5,11 +5,13 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main/main.component';
 import { VotingResultComponent } from './voting-result/voting-result.component';
+import { HelpComponent } from './help/help.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: MainComponent },
   { path: 'login/:roomId', component: MainComponent },
+  { path: 'help', component: HelpComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'movie/:name', component: MovieDetailsComponent },
   { path: 'movie/id/:imdbId', component: MovieDetailsComponent },

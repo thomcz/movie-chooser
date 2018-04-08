@@ -2,16 +2,8 @@ mat-form-field {
     width: 100%;
 }
 
-mat-card {
-  margin: 14px
-}
-
 button {
   margin: 5px;
-}
-
-.spacer {
-  flex: 1 1 auto;
 }
 
 .username {
@@ -30,18 +22,15 @@ button {
   text-align: right
 }
 
-.empty-list {
-  text-align: center
-}
-
 .sidenav {
   padding: 10px;
 }
 
-.mat-focused .mat-form-field-label {
-  color: #5cb53f !important;
-  }
-  
-  .mat-form-field-ripple {
-  background-color: #5cb53f !important;
-  }
+.mat-list-item.mat-list-item {
+  height: initial !important;
+  margin-bottom: 20px;
+}
+.mat-list-item .mat-line {
+  word-wrap: break-word !important; 
+  white-space: pre-wrap !important;
+}

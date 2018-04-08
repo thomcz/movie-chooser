@@ -1,0 +1,19 @@
+.text-center {
+    text-align: center
+}
+  
+.div-wrap-center {
+    display: table;
+    margin: 14px auto;
+    margin-top: 14px;
+}
+
+.mat-list-item.mat-list-item {
+    height: initial !important;
+    margin-bottom: 20px;
+}
+
+.mat-list-item .mat-line {
+    word-wrap: break-word !important; 
+    white-space: pre-wrap !important;
+}

@@ -54,14 +54,8 @@
     <div class="submit-vote" *ngIf="movies.length && isVotingState()">
       <button [disabled]="votedMovie == null || hasVoted" mat-raised-button color="primary" (click)="submitVote()">Submit Vote</button>
     </div>
-    <div class="empty-list" *ngIf="!movies.length">
-      <mat-icon>movie</mat-icon>
-      <br/>
-      <h3>Search and add a Movie!</h3>
-    </div>
-    
   </mat-card>
-
+  <app-help *ngIf="!movies.length"></app-help>
 </mat-drawer-container>
   
 
