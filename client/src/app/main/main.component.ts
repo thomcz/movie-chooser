@@ -75,7 +75,15 @@ export class MainComponent implements OnInit {
 
     this.authenticationData.changeRoomId(roomId)
     this.authenticationData.changeUsername(username)
-    this.router.navigateByUrl('/dashboard');
+    this.stateService.getState(this.roomId).subscribe(state => {
+      if (state == State.ADDING) {
+        this.router.navigateByUrl('/dashboard');
+      }
+      else {
+        this.openDialog('Information', 'Sorry you are to late the room is closed')
+      }
+    });
+
 
   }
 
