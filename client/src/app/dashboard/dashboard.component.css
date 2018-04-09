@@ -26,6 +26,10 @@ button {
   padding: 10px;
 }
 
+.btn-group button{
+  display: block;
+}
+
 .mat-list-item.mat-list-item {
   height: initial !important;
   margin-bottom: 20px;

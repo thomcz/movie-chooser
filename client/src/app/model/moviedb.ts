@@ -4,6 +4,7 @@ export class MovieDb {
     user: string;
     roomId: string;
     votes: number;
+    isChoosen: boolean;
 
     constructor(title: string, imdbId: string, user: string, roomId: string) {
         this.title = title;
@@ -11,5 +12,6 @@ export class MovieDb {
         this.user = user;
         this.roomId = roomId;
         this.votes = 0;
+        this.isChoosen = false;
     }
 }

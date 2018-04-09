@@ -30,6 +30,7 @@ export class DashboardComponent implements OnInit {
   private hasVoted: boolean
   private interval: number
   private state: State
+  private randomMovie: MovieDb
 
   constructor(
     private movieService: MovieService,
@@ -54,11 +55,11 @@ export class DashboardComponent implements OnInit {
     this.voteService.currentVote.subscribe(votedMovie => this.votedMovie = votedMovie)
 
     TimerObservable.create(0, this.interval).subscribe(() => {
-        this.stateService.getState(this.roomId).subscribe(state => this.state = state)
+      this.stateService.getState(this.roomId).subscribe(state => this.state = state)
     });
 
     TimerObservable.create(0, this.interval).subscribe(() => {
-        this.movieService.getMovies(this.roomId).subscribe(movies => this.movies = movies)
+      this.movieService.getMovies(this.roomId).subscribe(movies => this.movies = movies)
     });
   }
 
@@ -91,16 +92,39 @@ export class DashboardComponent implements OnInit {
   }
 
   chooseRandomMovie() {
-    this.stateService.setState(this.roomId, State.RANDOM).subscribe(
-      res => {
-      //choose random Movie by setting it in Room object
-      }
-    )
-    var index = Math.floor(Math.random() * this.movies.length) + 0     
-    this.openDialog('Choosen Movie', this.movies[index].title)
+    if (this.movies.length < 1) {
+      this.openDialog("Information", "There are no movie suggestions!")
+      return;
+    }
+    this.movieService.getMovies(this.roomId).subscribe(movies => {
+      this.movies = movies
+      var index = Math.floor(Math.random() * this.movies.length) + 0  
+      this.randomMovie = movies[index]
+      this.movieService.setRandomMovie(this.randomMovie).subscribe(res => {
+        this.stateService.setState(this.roomId, State.RANDOM).subscribe(
+          res => {
+            this.state = State.RANDOM
+          }
+        )
+      })
+    });
+  }
+
+  getListHeader(): string {
+    if (this.isVotingResultState()) {
+      return "Voting Result";
+    }
+    if (this.isRandomState()) {
+      return "Choosen Movie";
+    }
+    return "Suggested Movies";
   }
 
   startVoting() {
+    if (this.movies.length < 1) {
+      this.openDialog("Information", "There are no movie suggestions!")
+      return;
+    }
     this.stateService.setState(this.roomId, State.VOTING).subscribe(
       res => {
         this.state = State.VOTING
@@ -128,6 +152,13 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  showMovie(movie: MovieDb): boolean {
+    if (this.state == State.RANDOM) {
+      return movie.isChoosen;
+    }
+    return true;
+  }
+
   votedFor(movie: MovieDb): boolean {
     return this.votedMovie != null && this.votedMovie.imdbId == movie.imdbId
   }
@@ -149,7 +180,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getRoomLink(): string {
-   
     return `${MovieChooserConfiguration.getMovieChooserClientUrl()}/login/${this.roomId}`
   }
 
@@ -157,16 +187,6 @@ export class DashboardComponent implements OnInit {
     this.snackBar.open("link copyed into clipboard", "ok", {
       duration: 2000,
     });
-  }
-
-  private formatVotes(movies: MovieDb[]): string {
-    var result = ""
-    
-    for (let movie of movies) {
-      result += `${movie.title} got ${movie.votes} votes\n`
-    }
-
-    return result
   }
 
   private formatSearch(search: string): string {

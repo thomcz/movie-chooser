@@ -4,6 +4,7 @@ var MovieSchema = new mongoose.Schema({
   imdbId: String,
   user: String,
   roomId: String,
-  votes: Number
+  votes: Number,
+  isChoosen: Boolean
 });
 module.exports = mongoose.model('Movie', MovieSchema);

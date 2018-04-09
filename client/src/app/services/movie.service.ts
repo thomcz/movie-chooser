@@ -35,6 +35,10 @@ export class MovieService {
       new MovieDb(movie.Title, movie.imdbID, username, roomId))
   }
 
+  setRandomMovie(movie: MovieDb): Observable<any> {
+    return this.http.post(`${this.moviesUrl}/random`, movie)
+  }
+
   deleteMovie(movie: Movie, username: string, roomId: string) : Observable<any> {    
     return this.http.delete(`${this.moviesUrl}/${movie.imdbID}/${username}/${roomId}`)
   }
