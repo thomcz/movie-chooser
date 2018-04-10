@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="column">
+      <h1>Room</h1> 
+      <mat-divider></mat-divider>
+      <h2 class="room-url">{{getRoomLink()}}</h2>      
+      <img class="qr-code" src={{getQrCode()}}>
+              
+    
+  </div>
+  <mat-list class="column">
+      <h1>Suggested Movies</h1> 
+      <mat-divider></mat-divider>
+    <mat-list-item *ngFor="let movie of movies">
+      <mat-icon mat-list-icon color="accent">movie</mat-icon> 
+      <h4 mat-line>{{movie.title}}</h4>
+      <p mat-line>suggested by <span class="username">{{movie.user}}</span></p>
+      <span class="vote">+{{movie.votes}}</span> 
+    </mat-list-item>
+  </mat-list>
+  <mat-list class="column">
+      <h1>Users</h1> 
+      <mat-divider></mat-divider>
+    <mat-list-item *ngFor="let user of users">
+      <mat-icon mat-list-icon color="accent">face</mat-icon> 
+      <h4 mat-line>{{user.name}}</h4>
+    </mat-list-item>
+  </mat-list>
+</div>

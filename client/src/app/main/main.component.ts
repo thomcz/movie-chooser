@@ -7,6 +7,7 @@ import { RoomService } from '../services/room.service';
 import { Room } from '../model/room';
 import { State } from '../model/states';
 import { StateService } from '../services/state.service';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-main',
@@ -54,7 +55,7 @@ export class MainComponent implements OnInit {
     
     this.roomService.addRoom(new Room(this.roomId, State.ADDING)).subscribe(
       res => {
-        this.router.navigateByUrl('/dashboard');
+        this.addUser(new User(username, this.roomId))
       },
       err => {
         console.log("Error occured");
@@ -77,14 +78,20 @@ export class MainComponent implements OnInit {
     this.authenticationData.changeUsername(username)
     this.stateService.getState(this.roomId).subscribe(state => {
       if (state == State.ADDING) {
-        this.router.navigateByUrl('/dashboard');
+        this.addUser(new User(username, this.roomId))
       }
       else {
         this.openDialog('Information', 'Sorry you are to late the room is closed')
       }
     });
+  }
 
-
+  private addUser(user: User) {
+    this.roomService.addUser(user).subscribe(
+      res => {
+        this.router.navigateByUrl('/dashboard');
+      }
+    )
   }
 
   private createRandomRoomId(): string {

@@ -32,6 +32,7 @@ import { FormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HelpComponent } from './help/help.component';
+import { OverviewComponent } from './overview/overview.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { HelpComponent } from './help/help.component';
     MainComponent,
     DialogComponent,
     VotingResultComponent,
-    HelpComponent
+    HelpComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,

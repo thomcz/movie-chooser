@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MovieChooserConfiguration } from '../configuration/movieChooserConfig';
 import { Observable } from 'rxjs/Observable';
 import { Room } from '../model/room';
+import { User } from '../model/user';
 
 @Injectable()
 export class RoomService {
@@ -12,12 +13,19 @@ export class RoomService {
   constructor(
     private http: HttpClient
   )  { 
-    this.moviesUrl = `${MovieChooserConfiguration.getMovieChooserEndpointUrl()}/room`
+    this.moviesUrl = `${MovieChooserConfiguration.getMovieChooserEndpointUrl()}`
   }
 
-  addRoom(room: Room): Observable<any>  {
-    console.log(room)
-    return this.http.post(`${this.moviesUrl}`, room)
+  addRoom(room: Room): Observable<any> {
+    return this.http.post(`${this.moviesUrl}/room`, room)
+  }
+
+  addUser(user: User): Observable<any> {
+    return this.http.post(`${this.moviesUrl}/users`, user)
+  }
+
+  getUsersOfRoom(roomId: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.moviesUrl}/users/${roomId}`)
   }
 
 }
