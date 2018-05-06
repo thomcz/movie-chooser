@@ -10,11 +10,13 @@ var roomRouter = require('./routes/room');
 var userRouter = require('./routes/users');
 var votesRouter = require('./routes/votes');
 
+require('dotenv').config();
 var app = express();
 // load mongoose package
 var mongoose = require('mongoose');
-var mongoConfig = require('./config/mongodbConfig.json');
-const mongoUrl = `mongodb://${mongoConfig.username}:${mongoConfig.password}@${mongoConfig.url}/${mongoConfig.collection}`;
+//var mongoConfig = require('./config/mongodbConfig.json');
+//const mongoUrl = `mongodb://${mongoConfig.username}:${mongoConfig.password}@${mongoConfig.url}/${mongoConfig.collection}`;
+const mongoUrl = process.env.DB_CONN_URL;
 // Use native Node promises
 mongoose.Promise = global.Promise;
 

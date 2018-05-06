@@ -62,6 +62,7 @@ typings/
 
 # mongodb configuration
 config/
+*.env
 
 #deploys
 *.zip
