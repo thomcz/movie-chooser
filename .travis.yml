@@ -3,7 +3,7 @@ node_js:
 - iojs
 - '7'
 
-before_install: cd server
+script: cd server && npm install && npm test && cd ../client && ng build
 
 env:
   global:
