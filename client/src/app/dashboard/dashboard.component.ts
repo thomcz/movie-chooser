@@ -8,10 +8,11 @@ import { AuthenticationService } from '../services/authentication.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { VoteService } from '../services/vote.service';
-import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { State } from '../model/states';
 import { StateService } from '../services/state.service';
 import { MovieChooserConfiguration } from '../configuration/movieChooserConfig';
+import { Observable } from 'rxjs/Observable';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
 
 
 @Component({
