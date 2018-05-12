@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-- '6'
+- '9'
 
 before_script:
-  - npm install -g @angular/cli
+  - npm install
 
 script: cd client && ng build
 
